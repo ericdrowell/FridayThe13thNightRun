@@ -1,8 +1,11 @@
+let backgroundPattern;
+
 function level_init() {
   
 }
 
 function level_render() {
-  animatedContext.fillStyle = 'blue';
-  animatedContext.fillRect(0, 0, viewportWidth, viewportHeight)
+  backgroundPattern = animatedContext.createPattern(backgroundImg, 'repeat');
+  animatedContext.fillStyle = backgroundPattern;
+  animatedContext.fillRect(0, 0, BASE_WIDTH, BASE_HEIGHT);
 }

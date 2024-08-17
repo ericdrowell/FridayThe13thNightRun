@@ -16,56 +16,50 @@ function userInputs_handleKeyDown(evt) {
   else if (gameState === GAME_STATE_PLAYING) {
     let keycode = ((evt.which) || (evt.keyCode));
 
+    console.log(keycode)
+
     switch (keycode) {
       case 27:
         // esc key
         game_setState(GAME_STATE_PAUSED);
         break;
-      case 65:
-        // a key (strafe left)
-        player.sideMovement = -1;
+      case 39:
+        // right arrow key
+        playerXDirection = 1;
         break;
-      case 87:
-        // w key (move forward)
-        player.straightMovement = 1;
+      case 37:
+        // left arrow key
+        playerXDirection = -1;
         break;
-      case 68:
-        // d key (strafe right)
-        player.sideMovement = 1;
-        break;
-      case 83: 
-        // s key (move backwards)
-        player.straightMovement = -1;
+      case 38:
+        // up arrow key
+        player_jump();
         break;
       case 32:
-        player_jump();
+        // space
+        player_attack();
         break;
     }
   }
 };
 
 function userInputs_handleKeyUp(evt) {
-  if (gameState === GAME_STATE_PLAYING) {
-    let keycode = ((evt.which) || (evt.keyCode));
+  let keycode = ((evt.which) || (evt.keyCode));
 
-    switch (keycode) {
-      case 65:
-        // a key
-        player.sideMovement = 0;
-        break;
-      case 87:
-        // w key
-        player.straightMovement = 0;
-        
-        break;
-      case 68:
-        // d key
-        player.sideMovement = 0;
-        break;
-      case 83:
-        // s key
-        player.straightMovement = 0;
-        break;
-    }
+  switch (keycode) {
+    case 39:
+      // right arrow key
+      if (playerXDirection === 1) {
+        playerXDirection = 0;
+      }
+      
+      break;
+    case 37:
+      // left arrow key
+      if (playerXDirection === -1) {
+        playerXDirection = 0;
+      }
+      
+      break;
   }
 };

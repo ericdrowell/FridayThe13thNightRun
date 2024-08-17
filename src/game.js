@@ -4,7 +4,7 @@ function game_init() {
   level_init();
   player_init();
 
-  sprites_init(function() {
+  images_init(function() {
     game_setViewportSize();
     canvas_init();
     textures_init();
@@ -20,7 +20,6 @@ function game_init() {
 }
 
 function game_render() {
-  console.log('game render')
   level_render();
   player_render();
 }
@@ -75,7 +74,7 @@ function game_setState(nextState) {
 
   }
   else if (nextState === GAME_STATE_PLAYING) {
-    music_start();  
+    //music_start();  
   }
   else if (nextState === GAME_STATE_PAUSED) {
     music_stop();
