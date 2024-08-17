@@ -17,7 +17,7 @@
   "scripts": {
     "prod": "npm run create-dist && npm run build && node scripts/wrap.js && npm run terser && node scripts/replace.js && npm run html && npm run zip",
     "dev": "npm run create-dist && npm run build && cp ./dist/game-concatenated.js ./dist/friday-the-13th-night-run.min.js && node scripts/replace.js && npm run html",
-    "build": "npm run concat",
+    "build": "cp -r img dist && npm run concat",
     "coverage": "npm run create-dist && npm run build && npm run instrument && cp ./dist/nyc/dist/game-concatenated.js ./dist/friday-the-13th-night-run.min.js && node scripts/replace.js && npm run html",
     "jshint": "jshint ./src/*.js",
     "create-dist": "rm -rf ./dist && mkdir ./dist",

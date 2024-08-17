@@ -3,11 +3,39 @@
   <head>
     <title>Friday the 13th Night Run (js13k 2024)</title>
     <style>
-     
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #canvasContainer {
+        display: flex;
+        flex-direction: column;
+      }
+
+      canvas {
+          image-rendering: optimizeSpeed;             // Older versions of FF
+          image-rendering: -moz-crisp-edges;          // FF 6.0+
+          image-rendering: -webkit-optimize-contrast; // Webkit (non standard naming)
+          image-rendering: -o-crisp-edges;            // OS X & Windows Opera (12.02+)
+          image-rendering: crisp-edges;               // Possible future browsers.
+          -ms-interpolation-mode: nearest-neighbor;   // IE (non standard naming)
+      }
     </style>
   </head>
   <body>
-    <canvas id="sceneCanvas"></canvas>
+
+    <div id="canvasContainer">
+      <canvas id="animatedCanvas"></canvas>
+    </div>
+    
     <script>{js}</script>
+    <script>game_init()</script>
   </body>
 </html>
