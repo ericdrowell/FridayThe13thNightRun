@@ -1,6 +1,10 @@
 function canvas_init() {
   animatedCanvas = document.getElementById('animatedCanvas');
   animatedContext = canvas_initCanvas(animatedCanvas, viewportWidth, viewportHeight);
+
+  backgroundCanvas = document.getElementById('backgroundCanvas');
+  let levelWidth = LEVEL_WIDTH * magnification;
+  backgroundContext = canvas_initCanvas(backgroundCanvas, levelWidth, viewportHeight);
 };
 
 function canvas_initCanvas(canvas, width, height) {
@@ -10,7 +14,6 @@ function canvas_initCanvas(canvas, width, height) {
   canvas.height = height;
   canvas.style.width = width + 'px';
   canvas.style.height = height + 'px';
-  canvas.style.position = 'relative';
   canvas.style.top = 0;
   canvas.style.left = 0;
 

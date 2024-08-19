@@ -26,7 +26,7 @@
     "concat": "concat -o ./dist/game-concatenated.js ./src/*.js ./lib/*.js",
     "html": "html-minifier --collapse-whitespace ./dist/index-uncompressed.html -o ./dist/index.html",
     "watch": "npm-watch",
-    "zip": "mkdir ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024 && cp ./dist/index.html ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024/index.html && cd ./dist && zip -9 -r ./friday-the-13th-night-run-eric-rowell-js13k-2024 ./friday-the-13th-night-run-eric-rowell-js13k-2024 && cd .. && echo ================== && ls -l ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024.zip && echo ==================",
+    "zip": "mkdir ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024 && cp ./dist/index.html ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024/index.html && cp -r img ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024/img && cd ./dist && zip -9 -r ./friday-the-13th-night-run-eric-rowell-js13k-2024 ./friday-the-13th-night-run-eric-rowell-js13k-2024 && cd .. && echo ================== && ls -l ./dist/friday-the-13th-night-run-eric-rowell-js13k-2024.zip && echo ==================",
     "instrument": "nyc instrument dist/game-concatenated.js dist/nyc",
     "report": "nyc report --reporter=lcov --reporter=html --temp-dir ./coverage"
   },

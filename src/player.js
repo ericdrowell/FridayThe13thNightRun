@@ -16,7 +16,7 @@ function player_update() {
   playerSprite = playerSprites[playerSpriteIndex];
 
   // x position
-  playerX += Math.round(elapsedTime * PLAYER_SPEED/1000 * playerXDirection);
+  playerX += Math.round(elapsedTime * PLAYER_SPEED/1000 * playerXDirection + levelXChange);
 
 
 
@@ -27,8 +27,6 @@ function player_update() {
   if (playerY < 30) {
     playerY = 30;
   }
-
-  console.log(playerY)
 }
 
 function player_render() {

@@ -7,20 +7,22 @@ function game_init() {
   images_init(function() {
     game_setViewportSize();
     canvas_init();
-    textures_init();
+    level_initCanvas();
     game_setState(GAME_STATE_TITLE);
     game_loop();
 
     window.onresize = function() {
       game_setViewportSize();
       canvas_init();
-      textures_init();
+      level_initCanvas();
     }
   });
 }
 
 function game_render() {
   level_render();
+
+  animatedContext.clearRect(0, 0, BASE_WIDTH, BASE_WIDTH)
   player_render();
 }
 
@@ -89,7 +91,8 @@ function game_setState(nextState) {
   }
 }
 
-function game_update() {  
+function game_update() { 
+  level_update();
   player_update();
 }
 

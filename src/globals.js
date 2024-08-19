@@ -11,12 +11,17 @@ const GAME_STATE_WIN = 5;
 const PLAYER_SPEED = 100; // pixels/second
 const PLAYER_JUMP_SPEED = 300; // pixels/second
 const GRAVITY = 0.07; // pixels/second^2
+const LEVEL_SPEED = 50; // pixels/second
+const LEVEL_WIDTH = 10000;
 
 // variables
 let viewportWidth = 0;
 let viewportHeight = 0;
 let animatedCanvas;
 let animatedContext;
+let backgroundCanvas;
+let backgroundContext;
+let backgroundCanvasX = 0;
 let windowRatio;
 let textures = [];
 let gameState;
@@ -31,8 +36,11 @@ let now = 0;
 let playerSprites = [];
 let playerSprite;
 let playerSpriteIndex=0;
-let playerX=0;
+let playerX=256;
 let playerY=50;
 let playerSpriteDuration=200; // ms
 let playerYSpeed=0;
 let playerXDirection=0;
+let backgroundPattern;
+let levelX=0;
+let levelXChange=0;
