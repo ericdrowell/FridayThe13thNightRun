@@ -9,18 +9,14 @@ function userInputs_init() {
 };
 
 function userInputs_handleKeyDown(evt) {
+  let keycode = ((evt.which) || (evt.keyCode));
+
   if (gameState === GAME_STATE_TITLE) {
-    game_setState(GAME_STATE_PLAYING);
-    
+    game_setState(GAME_STATE_PLAYING); 
   }
   else if (gameState === GAME_STATE_PLAYING) {
-    let keycode = ((evt.which) || (evt.keyCode));
-
-    console.log(keycode)
-
     switch (keycode) {
       case 27:
-        // esc key
         game_setState(GAME_STATE_PAUSED);
         break;
       case 39:
@@ -40,6 +36,9 @@ function userInputs_handleKeyDown(evt) {
         player_attack();
         break;
     }
+  }
+  else if (gameState === GAME_STATE_PAUSED) {
+    game_setState(GAME_STATE_PLAYING);
   }
 };
 

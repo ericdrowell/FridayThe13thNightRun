@@ -7,7 +7,7 @@ function game_init() {
   images_init(function() {
     game_setViewportSize();
     canvas_init();
-    level_initCanvas();
+    level_preRender();
     game_setState(GAME_STATE_TITLE);
     game_loop();
 
@@ -20,10 +20,12 @@ function game_init() {
 }
 
 function game_render() {
-  level_render();
+  if (gameState === GAME_STATE_PLAYING) {
+    level_render();
 
-  animatedContext.clearRect(0, 0, BASE_WIDTH, BASE_WIDTH)
-  player_render();
+    animatedContext.clearRect(0, 0, BASE_WIDTH, BASE_WIDTH)
+    player_render();
+  }
 }
 
 function game_setViewportSize() {
@@ -76,7 +78,7 @@ function game_setState(nextState) {
 
   }
   else if (nextState === GAME_STATE_PLAYING) {
-    //music_start();  
+    music_start();  
   }
   else if (nextState === GAME_STATE_PAUSED) {
     music_stop();
@@ -92,8 +94,10 @@ function game_setState(nextState) {
 }
 
 function game_update() { 
-  level_update();
-  player_update();
+  if (gameState === GAME_STATE_PLAYING) {
+    level_update();
+    player_update();
+  }
 }
 
 function game_loop() {

@@ -31,10 +31,9 @@ function player_update() {
 
 function player_render() {
   animatedContext.save();
-  //animatedContext.scale(1, -1);
   animatedContext.translate(0, BASE_HEIGHT - playerSprite[3]);
   animatedContext.translate(playerX, -1 * playerY)
-  animatedContext.drawImage(spriteImg, playerSprite[0], playerSprite[1], playerSprite[2], playerSprite[3], 0, 0, playerSprite[2], playerSprite[3]);
+  animatedContext.drawImage(jasonImg, playerSprite[0], playerSprite[1], playerSprite[2], playerSprite[3], 0, 0, playerSprite[2], playerSprite[3]);
   animatedContext.restore();
 }
 
