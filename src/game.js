@@ -117,3 +117,8 @@ function game_loop() {
   lastTime = now;
   window.requestAnimationFrame(game_loop);  
 }
+
+// start game!
+setTimeout(() => {
+  game_init();
+}, 0)

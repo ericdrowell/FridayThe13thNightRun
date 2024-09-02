@@ -35,7 +35,7 @@ function level_update() {
 }
 
 function level_render() {
-  //backgroundCanvas.style.transform = 'translate3d(' + (levelX*magnification) + 'px, 0, 0)';
+  backgroundCanvas.style.transform = 'translate3d(' + (levelX*magnification) + 'px, 0, 0)';
 }
 
 function level_renderBlock(blockIndex, x, y) {
