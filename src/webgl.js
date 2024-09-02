@@ -1,7 +1,16 @@
 class WebGLImageRenderer {
-  constructor(canvas) {
+  constructor() {
+      canvas = document.getElementById('canvas');
+      context = canvas.getContext('webgl');
+      canvas.width = viewportWidth;
+      canvas.height = viewportHeight;
+      canvas.style.width = viewportWidth + 'px';
+      canvas.style.height = viewportHeight + 'px';
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+
       this.canvas = canvas;
-      this.gl = canvas.getContext('webgl');
+      this.gl = context
 
       if (!this.gl) {
           console.error('WebGL not supported, falling back on experimental-webgl');
@@ -16,6 +25,10 @@ class WebGLImageRenderer {
   }
 
   initWebGL() {
+      // Enable blending and set the blend function
+      this.gl.enable(this.gl.BLEND);
+      this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+
       // Vertex shader program
       const vertexShaderSource = `
           attribute vec2 a_position;
@@ -156,9 +169,5 @@ class WebGLImageRenderer {
 }
 
 function webgl_init() {
-  renderer = new WebGLImageRenderer(backgroundCanvas);
+  renderer = new WebGLImageRenderer();
 }
-
-// renderer.loadImage('https://example.com/image.png', (image) => {
-//   renderer.drawImage(image, 0, 0, canvas.width, canvas.height);
-// });
