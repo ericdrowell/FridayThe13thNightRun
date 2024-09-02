@@ -7,24 +7,6 @@ function level_init() {
   levelData = []
 }
 
-function level_preRender() {
-  backgroundContext.save();
-
-  // draw woods
-  backgroundPattern = backgroundContext.createPattern(woodsImg, 'repeat');
-  backgroundContext.fillStyle = backgroundPattern;
-  backgroundContext.fillRect(0, 0, LEVEL_WIDTH, BASE_HEIGHT);  
-
-  // draw rocks
-  backgroundContext.translate(0, BASE_HEIGHT - 50);
-  
-  
-  level_renderBlock(0, 200, 30)
-
-  backgroundContext.restore();
-
-}
-
 function level_update() {
   levelXChange = Math.round(elapsedTime * LEVEL_SPEED/1000 * -1);
   levelX += levelXChange;
@@ -35,14 +17,25 @@ function level_update() {
 }
 
 function level_render() {
-  backgroundCanvas.style.transform = 'translate3d(' + (levelX*magnification) + 'px, 0, 0)';
+  const woodsWidth = woodsImg.width;
+  const woodsHeight = woodsImg.height;
+  const levelXMod = Math.round(levelX % woodsImg.width);
+
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*0)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*1)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*2)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
+
+  level_renderBlock(rockImgs[0], 400, 25)
+  level_renderBlock(rockImgs[0], 400, 25+16)
+
+  //renderer.drawImage(woodsImg, levelX + viewportWidth, 0, viewportWidth, viewportHeight);
+
+  //backgroundCanvas.style.transform = 'translate3d(' + (levelX*magnification) + 'px, 0, 0)';
+
+  //level_renderBlock(0, 0, 0);
 }
 
-function level_renderBlock(blockIndex, x, y) {
-    const block = blockData[blockIndex];
-    const sx = block[0];
-    const sy = block[1];
-    const sWidth = block[2];
-    const sHeight = block[3];
-    backgroundContext.drawImage(rocksImg, sx, sy, sWidth, sHeight, x, -1 * y, sWidth, sHeight);
+function level_renderBlock(img, x, y) {
+  renderer.drawImage(img, (levelX + x)*magnification, (BASE_HEIGHT -1 * y - img.height)*magnification, img.width*magnification, img.height*magnification);
+
 }

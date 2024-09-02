@@ -30,13 +30,20 @@ function player_update() {
 }
 
 function player_render() {
-  animatedContext.save();
-  animatedContext.translate(0, BASE_HEIGHT - playerSprite[3]);
-  animatedContext.translate(playerX, -1 * playerY)
-  animatedContext.drawImage(jasonImg, playerSprite[0], playerSprite[1], playerSprite[2], playerSprite[3], 0, 0, playerSprite[2], playerSprite[3]);
-  animatedContext.restore();
+  // animatedContext.save();
+  // animatedContext.translate(0, BASE_HEIGHT - playerSprite[3]);
+  // animatedContext.translate(playerX, -1 * playerY)
+  // animatedContext.drawImage(jasonImg, playerSprite[0], playerSprite[1], playerSprite[2], playerSprite[3], 0, 0, playerSprite[2], playerSprite[3]);
+  // animatedContext.restore();
+
+  let img = jasonImgs[0];
+  renderer.drawImage(img, playerX*magnification, (BASE_HEIGHT -1 * playerY - img.height) * magnification, img.width*magnification, img.height*magnification);
 }
 
 function player_jump() {
   playerYSpeed = PLAYER_JUMP_SPEED;
+}
+
+function player_attack() {
+
 }
