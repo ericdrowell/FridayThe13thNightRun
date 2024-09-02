@@ -17,14 +17,16 @@ function level_update() {
 }
 
 function level_render() {
-  const woodsWidthMag = woodsImg.width*magnification;
-  const woodsHeightMag = woodsImg.height*magnification;
-  const levelXMag = levelX * magnification;
+  const woodsWidth = woodsImg.width;
+  const woodsHeight = woodsImg.height;
+  const levelXMod = Math.round(levelX % woodsImg.width);
 
-  renderer.drawImage(woodsImg, levelXMag, 0, woodsWidthMag, woodsHeightMag);
-  renderer.drawImage(woodsImg, levelXMag+woodsWidthMag, 0, woodsWidthMag, woodsHeightMag);
-  renderer.drawImage(woodsImg, levelXMag+woodsWidthMag*2, 0, woodsWidthMag, woodsHeightMag);
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*0)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*1)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
+  renderer.drawImage(woodsImg, (levelXMod+woodsWidth*2)*magnification, 0, woodsWidth*magnification, woodsHeight*magnification);
 
+  level_renderBlock(rockImgs[0], 400, 25)
+  level_renderBlock(rockImgs[0], 400, 25+16)
 
   //renderer.drawImage(woodsImg, levelX + viewportWidth, 0, viewportWidth, viewportHeight);
 
@@ -33,12 +35,7 @@ function level_render() {
   //level_renderBlock(0, 0, 0);
 }
 
-function level_renderBlock(blockIndex, x, y) {
-    const block = blockData[blockIndex];
-    const sx = block[0];
-    const sy = block[1];
-    const sWidth = block[2];
-    const sHeight = block[3];
+function level_renderBlock(img, x, y) {
+  renderer.drawImage(img, (levelX + x)*magnification, (BASE_HEIGHT -1 * y - img.height)*magnification, img.width*magnification, img.height*magnification);
 
-    renderer.drawImage(rocksImg, sx, sy, sWidth, sHeight, x, -1 * y, sWidth, sHeight);
 }

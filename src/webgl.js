@@ -21,6 +21,8 @@ class WebGLImageRenderer {
           throw new Error('Your browser does not support WebGL');
       }
 
+      this.textureCache = {}; // Initialize texture cache
+
       this.initWebGL();
   }
 
@@ -108,13 +110,26 @@ class WebGLImageRenderer {
       this.gl.deleteProgram(program);
   }
 
-  loadImage(url, callback) {
-      const image = new Image();
-      image.src = url;
-      image.onload = () => callback(image);
+  createTexture(image) {
+      const texture = this.gl.createTexture();
+      this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
+      this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, image);
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+      
+      return texture;
   }
 
   drawImage(image, x, y, width, height) {
+      // Check if the texture is already cached
+      let texture = this.textureCache[image.src];
+      if (!texture) {
+          texture = this.createTexture(image);
+          this.textureCache[image.src] = texture; // Cache the texture
+      }
+
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
       const x1 = x;
       const y1 = y;
@@ -154,14 +169,8 @@ class WebGLImageRenderer {
 
       this.gl.uniform2f(this.resolutionLocation, this.gl.canvas.width, this.gl.canvas.height);
 
-      const texture = this.gl.createTexture();
+      // Use the cached texture
       this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
-      this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, image);
-      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
-      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
-      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
-      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-
       this.gl.uniform1i(this.imageLocation, 0);
 
       this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);

@@ -19,14 +19,13 @@ let viewportWidth = 0;
 let viewportHeight = 0;
 let canvas;
 let context;
-//let backgroundCanvasX = 0;
 let windowRatio;
 let textures = [];
 let gameState;
 let magnification = 1;
-let jasonImgs = [];
 let woodsImg = new Image();
-let rocksImg = new Image();
+let jasonImgs = [];
+let rockImgs = []
 let startTime = 0;
 let totalElapsedTime = 0;
 let elapsedTime = 0;
