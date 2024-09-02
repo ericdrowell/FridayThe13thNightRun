@@ -43,5 +43,4 @@ let backgroundPattern;
 let levelX=0;
 let levelXChange=0;
 let levelData = [];
-let blockData = [];
 let renderer;

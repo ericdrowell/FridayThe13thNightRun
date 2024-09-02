@@ -1,9 +1,9 @@
 function game_init() {
   userInputs_init();
   music_init();
+  images_init();
   level_init();
   player_init();
-  images_init();
   game_setViewportSize();
   webgl_init();
   game_setState(GAME_STATE_TITLE);
